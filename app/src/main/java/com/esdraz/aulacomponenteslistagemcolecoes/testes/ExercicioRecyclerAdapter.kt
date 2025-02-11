@@ -48,7 +48,18 @@ class ComponenteListagem {
 
 }
 
-class MeuAdaptador() {
+class MeuAdaptador(
+    lista: List<String>
+) : Adaptador {
+    private val listaItens = lista
+    override fun quantidadeItens(): Int {
+        return listaItens.size
+    }
+
+    override fun montarLayoutParaItem(posicao: Int): String {
+        val nome = listaItens[posicao]
+        return "$posicao) $nome -"
+    }
 }
 
 fun main() {
@@ -57,5 +68,7 @@ fun main() {
     val listaItens = listOf("jamilton", "ana", "maria", "pedro", "joão")
 
     val componenteListagem = ComponenteListagem()
+    componenteListagem.adaptador = MeuAdaptador(listaItens)
+    componenteListagem.executar()
 
 }
